@@ -13,7 +13,8 @@ AtCoder Heuristic Contest などで、ビルドから評価までを一括で回
 - ビジュアライザ出力から `Score = <num>` を抽出
 - `stderr` の `# ` プレフィックス行をコメントとして抽出表示
 - 最後に処理したケースの出力をクリップボードへコピー
-- `--no-evaluate`（評価スキップ）と `--tester`（tester 経由実行）をサポート
+- `--no-evaluate`（評価スキップ）をサポート
+- `test.use_tester=true` による tester 経由実行をサポート
 
 ## 前提環境
 
@@ -107,7 +108,6 @@ comment_regex = "^# (.*)$"
 - `-f, --config <PATH>`: 設定ファイルパス（デフォルト `./heu.toml`）
 - `-j, --threads <N>`: 並列スレッド数
 - `-n, --no-evaluate`: 評価なしで実行
-- `-t, --tester`: tester を使って実行
 - `cases...`: ケース指定（例: `0`, `3-5`, `0 1 3-5`）
 
 ## Troubleshooting

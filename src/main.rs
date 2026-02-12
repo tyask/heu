@@ -34,10 +34,6 @@ pub struct Args {
     /// Run without evaluation (skip visualizer scoring)
     #[arg(short = 'n', long = "no-evaluate")]
     no_evaluate: bool,
-
-    /// Use tester.exe for interactive problems
-    #[arg(short = 't', long = "tester")]
-    use_tester: bool,
 }
 
 fn load_config(config_path: Option<&str>) -> Config {
@@ -79,9 +75,6 @@ fn main() {
     }
     if args.no_evaluate {
         config.test.no_evaluate = true;
-    }
-    if args.use_tester {
-        config.test.use_tester = true;
     }
 
     let heu = Heu::new(config);

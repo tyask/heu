@@ -35,6 +35,10 @@ pub struct TestConfig {
 }
 
 impl Config {
+    fn escape_toml_basic_string(s: &str) -> String {
+        s.replace('\\', "\\\\").replace('"', "\\\"")
+    }
+
     pub fn default_config() -> Self {
         let cpus = num_cpus::get();
         Config {
@@ -101,8 +105,8 @@ comment_regex = "{}"
             self.test.out_dir,
             self.test.vis,
             self.test.tester,
-            self.test.score_regex,
-            self.test.comment_regex,
+            Self::escape_toml_basic_string(&self.test.score_regex),
+            Self::escape_toml_basic_string(&self.test.comment_regex),
         )
     }
 }
@@ -584,5 +588,12 @@ mod tests {
     fn test_output_file() {
         let heu = Heu::new(test_config());
         assert_eq!(heu.output_file(3), "./tools/out/0003.txt");
+    }
+
+    #[test]
+    fn test_generate_toml_score_regex_escapes_backslash() {
+        let cfg = Config::default_config();
+        let toml = cfg.generate_toml_with_comments();
+        assert!(toml.contains("score_regex = \"Score = (\\\\d+)\""));
     }
 }
